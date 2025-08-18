@@ -7,5 +7,5 @@ export function HttpResponse<T>(
 	status: ContentfulStatusCode,
 	result: T
 ) {
-	return c.json({ message, result }, status)
+	return c.json({ message, data: result }, status)
 }

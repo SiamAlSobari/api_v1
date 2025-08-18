@@ -9,8 +9,11 @@ export const profilesTable = mysqlTable("profiles", {
         .unique()
         .notNull()
         .references(() => usersTable.id),
+    avatarUrl: varchar("avatar_url", { length: 255 }).default(
+        "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg"
+    ),
     createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
 });
 
 export const profilesRelations = relations(profilesTable, ({ one }) => ({

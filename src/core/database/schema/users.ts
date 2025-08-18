@@ -7,7 +7,7 @@ export const usersTable = mysqlTable("users", {
     hashPassword: varchar("hash_password", { length: 255 }).notNull(),
     email: varchar("email", { length: 255 }).notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
-    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
 });
 
 export const usersRelations = relations(usersTable, ({ one }) => ({
