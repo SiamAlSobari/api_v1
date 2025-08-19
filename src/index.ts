@@ -1,8 +1,17 @@
 import { Hono } from "hono";
 import { authController } from "./http/controllers/auth.controller";
 import { HttpException } from "./common/helpers/http.exception";
+import { cors } from "hono/cors";
 
 const app = new Hono().basePath("api");
+app.use(
+    "*",
+    cors({
+        origin: (origin) => origin ?? "*",
+        allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+        credentials: true,
+    })
+);
 app.onError((err, c) => {
     if (err instanceof HttpException) {
         return c.json(
