@@ -1,5 +1,7 @@
 import { comparePassword, hashPassword } from "../../common/helpers/hash.password";
 import { HttpException } from "../../common/helpers/http.exception";
+import { jwtSeccret } from "../../common/helpers/jwt.secret";
+import { generateToken } from "../../common/helpers/jwt.token";
 import AuthRepository from "../repositories/auth.repository";
 
 export default class AuthService {
@@ -20,6 +22,8 @@ export default class AuthService {
         if (!user) throw new HttpException("User not found", 404);
         const isValidPassword = await comparePassword(password, user.hashPassword);
         if (!isValidPassword) throw new HttpException("Invalid password", 401);
-        return user
+        const payload = {id:user.id,email:user.email}
+        const token = await generateToken(payload,jwtSeccret);
+        return token
     }
 }

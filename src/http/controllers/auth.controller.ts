@@ -24,7 +24,10 @@ export const authController = new Hono()
     async (c) => {
         const { email, password} = c.req.valid("json");
         const user = await authService.signIn(email, password)
-        const token = setCookie(c, "token", user.id, { path: "/",maxAge: 60 * 60 * 24 * 2 });
+        const token = setCookie(c, "token", user, { path: "/",maxAge: 60 * 60 * 24 * 2 });
         return HttpResponse(c, "Success", 200, { user, token });
     }
+)
+.get(
+    "/me",
 )
