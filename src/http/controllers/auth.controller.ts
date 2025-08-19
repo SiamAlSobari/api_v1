@@ -1,14 +1,15 @@
-import { Hono } from "hono";
+import { Context, Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import { signInValidation, signUpValidation } from "../../common/validations/auth.validation";
 import AuthRepository from "../repositories/auth.repository";
 import AuthService from "../services/auth.service";
 import { HttpResponse } from "../../common/helpers/http.response";
 import { setCookie } from "hono/cookie";
+import { authMiddleware } from "../../middlewares/auth.middleware";
 
 const authRepository = new AuthRepository()
 const authService = new AuthService(authRepository)
-export const authController = new Hono()
+export const authController = new Hono<{ Variables: Context }>()
 .post(
     "/signup",
     zValidator("json", signUpValidation),
@@ -29,5 +30,10 @@ export const authController = new Hono()
     }
 )
 .get(
-    "/me",
+    "/session",
+    authMiddleware,
+    async (c) => {
+        const user = c.get('user')
+        return HttpResponse(c, "Success", 200, {user});
+    }
 )
