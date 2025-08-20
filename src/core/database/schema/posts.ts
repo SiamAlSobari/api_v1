@@ -6,6 +6,7 @@ export const postsTable = mysqlTable("posts", {
     id: varchar("id", { length: 255 }).notNull().unique().primaryKey(),
     title: varchar("title", { length: 255 }).notNull(),
     content: text("content").notNull(),
+    thumbnailUrl: varchar("thumbnail_url",{length: 255}).notNull(),
     user_id: varchar("user_id", { length: 255 })
         .notNull()
         .references(() => usersTable.id),
