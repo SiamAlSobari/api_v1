@@ -6,9 +6,9 @@ export default class PostService {
         private readonly postRepo: postRepository
     ) {}
 
-    public async createPost(thumbnail:File, title: string, description: string) {
+    public async createPost(thumbnail:File, title: string, description: string, userId: string) {
         const upload = await uploadFIle(thumbnail, "uploads/posts/thumbnail");
-        await this.postRepo.create(upload.randomName, title, description);
+        await this.postRepo.create(upload.randomName, title, description, userId);
         return { thumbnail: upload.randomName, title, description };
     }
 }

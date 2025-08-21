@@ -2,8 +2,7 @@ import { db } from "../../core/database/db";
 import { postsTable } from "../../core/database/schema";
 
 export default class PostRepository{
-    public async create(thumbnail_url: string, title: string, description: string) {
-        const userId = crypto.randomUUID();
+    public async create(thumbnail_url: string, title: string, description: string, userId: string) {
         await db.insert(postsTable).values({
             id: crypto.randomUUID(),
             title: title,
