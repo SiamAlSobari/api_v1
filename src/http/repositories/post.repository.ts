@@ -1,0 +1,15 @@
+import { db } from "../../core/database/db";
+import { postsTable } from "../../core/database/schema";
+
+export default class PostRepository{
+    public async create(thumbnail_url: string, title: string, description: string) {
+        const userId = crypto.randomUUID();
+        await db.insert(postsTable).values({
+            id: crypto.randomUUID(),
+            title: title,
+            description: description,
+            thumbnailUrl: `http://localhost:3000/api/uploads/posts/thumbnail/${thumbnail_url}`,
+            user_id: userId,
+        });
+    }
+}
