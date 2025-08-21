@@ -3,8 +3,7 @@ import { authController } from "./http/controllers/auth.controller";
 import { HttpException } from "./common/helpers/http.exception";
 import { cors } from "hono/cors";
 import { postController } from "./http/controllers/post.controller";
-import { zValidator } from "@hono/zod-validator";
-import { ZodError } from "zod/v4";
+import { serveStatic } from "hono/bun";
 
 const app = new Hono().basePath("api");
 app.use(
@@ -15,6 +14,7 @@ app.use(
         credentials: true,
     })
 );
+app.use("/uploads/*", serveStatic({ root: "../" }));
 app.onError((err, c) => {
     if (err instanceof HttpException) {
         return c.json(
