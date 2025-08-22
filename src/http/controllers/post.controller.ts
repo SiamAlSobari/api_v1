@@ -20,3 +20,10 @@ export const postController = new Hono<{ Variables: Context }>()
         return HttpResponse(c, "Success", 200, createdPost)
     }
 )
+.get(
+    "terbaru",
+    async (c) => {
+        const posts = await postService.getPostsNew();
+        return HttpResponse(c, "Success", 200, posts)
+    }
+)

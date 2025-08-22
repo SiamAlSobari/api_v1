@@ -11,4 +11,8 @@ export default class PostService {
         await this.postRepo.create(upload.randomName, title, description, userId);
         return { thumbnail: upload.randomName, title, description };
     }
+
+    public async getPostsNew(){
+        return await this.postRepo.getPosts()
+    }
 }
