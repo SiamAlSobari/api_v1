@@ -12,17 +12,20 @@ export default class AuthService {
     public async signUp(email: string, password: string, name: string) {
         const existsUser = await this.authRepo.findUserByEmail(email);
         if (existsUser) throw new HttpException("User already exists", 400);
+        const isAdmin = await this.authRepo.countAdmin();
+        const role = isAdmin.count < 3 ? "admin" : "user"; 
         const hashedPassword = await hashPassword(password);
-        await this.authRepo.create(email, hashedPassword, name);
+        await this.authRepo.create(email, hashedPassword, name, role);
         return { email, name };
     }
 
     public async signIn(email:string, password: string) {
         const user = await this.authRepo.findUserByEmail(email);
         if (!user) throw new HttpException("User not found", 404);
+
         const isValidPassword = await comparePassword(password, user.hashPassword);
         if (!isValidPassword) throw new HttpException("Invalid password", 401);
-        const payload = {id:user.id,email:user.email}
+        const payload = {id:user.id,email:user.email,role:user.role};
         const token = await generateToken(payload,jwtSeccret);
         return token
     }

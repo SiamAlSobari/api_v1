@@ -1,0 +1,1 @@
+ALTER TABLE `profiles` ADD `role` varchar(255) DEFAULT 'user' NOT NULL;
