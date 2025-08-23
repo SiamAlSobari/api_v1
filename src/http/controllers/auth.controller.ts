@@ -4,7 +4,7 @@ import { signInValidation, signUpValidation } from "../../common/validations/aut
 import AuthRepository from "../repositories/auth.repository";
 import AuthService from "../services/auth.service";
 import { HttpResponse } from "../../common/helpers/http.response";
-import { setCookie } from "hono/cookie";
+import { deleteCookie, setCookie } from "hono/cookie";
 import { authMiddleware } from "../../middlewares/auth.middleware";
 
 const authRepository = new AuthRepository()
@@ -35,5 +35,12 @@ export const authController = new Hono<{ Variables: Context }>()
     async (c) => {
         const user = c.get('user')
         return HttpResponse(c, "Success", 200, {user});
+    }
+)
+.delete(
+    "/signout",
+    async (c) => {
+        const token = deleteCookie(c,"token")
+        return HttpResponse(c, "Berhasil sign out", 200, {});
     }
 )
