@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync } from "fs";
 import path = require("path");
 
-export async function uploadFIle(file: File, uploadDir: string) {
+export async function uploadFile(file: File, uploadDir: string) {
     if (!existsSync(uploadDir)) {
         mkdirSync(uploadDir, { recursive: true });
     }

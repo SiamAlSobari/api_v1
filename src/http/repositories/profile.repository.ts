@@ -10,11 +10,22 @@ export default class ProfileRepository {
         gender: string,
         profileId: string
     ) {
-        const update = db.update(profilesTable).set({
-            avatarImageUrl: `http://localhost:3000/api/uploads/posts/thumbnail/${avatar_url}`,
-            coverImageUrl: `http://localhost:3000/api/uploads/posts/thumbnail/${cover_url}`,
-            name: name,
-            gender: gender
-        }).where(eq(profilesTable.id, profileId))
+        const update = await db
+            .update(profilesTable)
+            .set({
+                avatarImageUrl: `http://localhost:3000/api/uploads/profiles/avatars/${avatar_url}`,
+                coverImageUrl: `http://localhost:3000/api/uploads/profiles/covers/${cover_url}`,
+                name: name,
+                gender: gender,
+            })
+            .where(eq(profilesTable.id, profileId));
+    }
+
+    public async getProfileById(profileId: string) {
+        const [profile] = await db
+            .select()
+            .from(profilesTable)
+            .where(eq(profilesTable.id, profileId));
+        return profile;
     }
 }

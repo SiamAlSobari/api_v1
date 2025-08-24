@@ -1,4 +1,4 @@
-import { uploadFIle } from "../../common/helpers/upload.file";
+import { uploadFile } from "../../common/helpers/upload.file";
 import postRepository from "../repositories/post.repository";
 
 export default class PostService {
@@ -7,7 +7,7 @@ export default class PostService {
     ) {}
 
     public async createPost(thumbnail:File, title: string, description: string, userId: string) {
-        const upload = await uploadFIle(thumbnail, "uploads/posts/thumbnail");
+        const upload = await uploadFile(thumbnail, "uploads/posts/thumbnail");
         await this.postRepo.create(upload.randomName, title, description, userId);
         return { thumbnail: upload.randomName, title, description };
     }
