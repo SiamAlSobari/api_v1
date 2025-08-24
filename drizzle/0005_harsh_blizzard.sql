@@ -1,0 +1,2 @@
+ALTER TABLE `posts` RENAME COLUMN `thumbnail_url` TO `thumbnail_image_url`;--> statement-breakpoint
+ALTER TABLE `profiles` MODIFY COLUMN `cover_image_url` varchar(255) DEFAULT 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMa-rZMEw5mFIOl2Is7nTQsQUQ5fS8qAAVsQ&s';

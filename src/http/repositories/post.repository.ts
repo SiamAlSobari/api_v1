@@ -9,7 +9,7 @@ export default class PostRepository {
             id: crypto.randomUUID(),
             title: title,
             description: description,
-            thumbnailUrl: `http://localhost:3000/api/uploads/posts/thumbnail/${thumbnail_url}`,
+            thumbnailImageUrl: `http://localhost:3000/api/uploads/posts/thumbnail/${thumbnail_url}`,
             user_id: userId,
         });
     }

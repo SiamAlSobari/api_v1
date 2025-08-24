@@ -9,8 +9,12 @@ export const profilesTable = mysqlTable("profiles", {
         .unique()
         .notNull()
         .references(() => usersTable.id),
-    avatarUrl: varchar("avatar_url", { length: 255 }).default(
+    gender: varchar("gender", { length: 20 }),
+    avatarImageUrl: varchar("avatar_iamge_url", { length: 255 }).default(
         "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg"
+    ),
+    coverImageUrl: varchar("cover_image_url", { length: 255 }).default(
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMa-rZMEw5mFIOl2Is7nTQsQUQ5fS8qAAVsQ&s"
     ),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
