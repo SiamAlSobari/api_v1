@@ -1,8 +1,8 @@
 import { Hono } from "hono";
-import { authController } from "./http/controllers/auth.controller";
+import { authController } from "./http/auth/auth.controller";
 import { HttpException } from "./common/helpers/http.exception";
 import { cors } from "hono/cors";
-import { postController } from "./http/controllers/post.controller";
+import { postController } from "./http/post/post.controller";
 import { serveStatic } from "hono/bun";
 
 const app = new Hono().basePath("api");

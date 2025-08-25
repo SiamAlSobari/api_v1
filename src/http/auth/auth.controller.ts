@@ -1,11 +1,11 @@
 import { Context, Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
-import { signInValidation, signUpValidation } from "../../common/validations/auth.validation";
-import AuthRepository from "../repositories/auth.repository";
-import AuthService from "../services/auth.service";
+import { signInValidation, signUpValidation } from "./auth.validation";
+import AuthRepository from "./auth.repository";
+import AuthService from "./auth.service";
 import { HttpResponse } from "../../common/helpers/http.response";
 import { deleteCookie, setCookie } from "hono/cookie";
-import { authMiddleware } from "../../middlewares/auth.middleware";
+import { authMiddleware } from "../../common/middlewares/auth.middleware";
 
 const authRepository = new AuthRepository();
 const authService = new AuthService(authRepository);

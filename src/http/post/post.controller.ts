@@ -1,10 +1,10 @@
 import { zValidator } from "@hono/zod-validator";
 import { Context, Hono } from "hono";
-import { createPostValidation } from "../../common/validations/post.validation";
-import PostService from "../services/post.service";
+import { createPostValidation } from "./post.validation";
+import PostService from "./post.service";
 import { HttpResponse } from "../../common/helpers/http.response";
-import PostRepository from "../repositories/post.repository";
-import { authMiddleware } from "../../middlewares/auth.middleware";
+import PostRepository from "./post.repository";
+import { authMiddleware } from "../../common/middlewares/auth.middleware";
 
 const postRepository = new PostRepository();
 const postService = new PostService(postRepository);
