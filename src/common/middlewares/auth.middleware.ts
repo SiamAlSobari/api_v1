@@ -6,7 +6,7 @@ import { jwtSeccret } from "../helpers/jwt.secret";
 
 declare module "hono" {
     interface ContextVariableMap {
-        user: { id: string; email: string };
+        user: { id: string; email: string; role: string };
     }
 }
 
@@ -15,6 +15,6 @@ export const authMiddleware: MiddlewareHandler = async (c, next) => {
     if (!token) throw new HttpException("Unauthorized", 401);
     const payload = await verify(token, jwtSeccret);
     if (!payload) throw new HttpException("Unauthorized", 401);
-    c.set("user", payload as { id: string; email: string });
+    c.set("user", payload as { id: string; email: string; role: string });
     await next();
 };
