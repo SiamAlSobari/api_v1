@@ -3,7 +3,7 @@ import { postsTable } from "./posts";
 import { topicsTable } from "./topics";
 
 //pivot table many to many
-export const topicsPostTable = mysqlTable("topics_posts", {
+export const topicsPostsTable = mysqlTable("topics_posts", {
     postId: varchar("post_id", { length: 255 })
         .notNull()
         .references(() => postsTable.id),
@@ -12,4 +12,4 @@ export const topicsPostTable = mysqlTable("topics_posts", {
         .references(() => topicsTable.id),
 });
 
-export type TopicPost = typeof topicsPostTable.$inferSelect;
+export type TopicPosts = typeof topicsPostsTable.$inferSelect;
