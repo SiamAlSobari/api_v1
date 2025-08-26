@@ -28,5 +28,10 @@ export default class ProfileService {
             cover_url = uploadCover.randomName;
         }
         await this.profileRepo.updateProfile(avatar_url, cover_url, name, gender, profileId);
+        return { avatar_url, cover_url, name, gender };
+    }
+
+    public async getProfileByUserId(userId: string) {
+        return this.profileRepo.getProfileByUserId(userId);
     }
 }

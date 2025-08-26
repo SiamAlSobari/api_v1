@@ -4,6 +4,7 @@ import { HttpException } from "./common/helpers/http.exception";
 import { cors } from "hono/cors";
 import { postController } from "./http/post/post.controller";
 import { serveStatic } from "hono/bun";
+import { profileController } from "./http/profile/profile.controller";
 
 const app = new Hono().basePath("api");
 app.use(
@@ -29,5 +30,6 @@ app.get("/", (c) => {
 });
 app.route("/auth", authController);
 app.route("/posts", postController);
+app.route("/profiles", profileController);
 
 export default app;
