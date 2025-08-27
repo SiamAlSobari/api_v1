@@ -7,14 +7,14 @@ import AuthRepository from "./auth.repository";
 export default class AuthService {
     constructor(private readonly authRepo: AuthRepository) {}
 
-    public async signUp(email: string, password: string, name: string) {
+    public async signUp(email: string, password: string, user_name: string, first_name: string, last_name: string) {
         const existsUser = await this.authRepo.findUserByEmail(email);
         if (existsUser) throw new HttpException("User already exists", 400);
         const isAdmin = await this.authRepo.countAdmin();
         const role = isAdmin.count < 3 ? "admin" : "user";
         const hashedPassword = await hashPassword(password);
-        await this.authRepo.create(email, hashedPassword, name, role);
-        return { email, name };
+        await this.authRepo.create(email, hashedPassword, user_name, first_name, last_name, role);
+        return { email, user_name, first_name, last_name };
     }
 
     public async signIn(email: string, password: string) {

@@ -3,18 +3,27 @@ import { db } from "../../core/database/db";
 import { profilesTable, usersTable } from "../../core/database/schema";
 
 export default class AuthRepository {
-    public async create(email: string, hashPassword: string, name: string,role:string) {
+    public async create(
+        email: string,
+        hashPassword: string,
+        user_name: string,
+        first_name: string,
+        last_name: string,
+        role: string
+    ) {
         const userId = crypto.randomUUID();
         await db.insert(usersTable).values({
             hashPassword: hashPassword,
             email: email,
             id: userId,
-            role: role
+            role: role,
         });
         await db.insert(profilesTable).values({
             id: crypto.randomUUID(),
-            name: name,
             userId: userId,
+            userName: user_name,
+            lastName: last_name,
+            firstName: first_name,
         });
     }
 
