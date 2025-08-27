@@ -6,7 +6,7 @@ export const profilesTable = mysqlTable("profiles", {
     id: varchar("id", { length: 255 }).notNull().unique().primaryKey(),
     firstName: varchar("first_name", { length: 255 }).notNull(),
     lastName: varchar("last_name", { length: 255 }).notNull(),
-    userName: varchar("user_name", { length: 255 }).notNull(),
+    userName: varchar("user_name", { length: 255 }).notNull().unique(),
     userId: varchar("user_id", { length: 255 })
         .unique()
         .notNull()
