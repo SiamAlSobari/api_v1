@@ -50,6 +50,13 @@
       "when": 1756301852094,
       "tag": "0006_easy_sally_floyd",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1756303354976,
+      "tag": "0007_overjoyed_nova",
+      "breakpoints": true
     }
   ]
 }

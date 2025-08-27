@@ -6,9 +6,9 @@ export default class AuthRepository {
     public async create(
         email: string,
         hashPassword: string,
-        user_name: string,
-        first_name: string,
-        last_name: string,
+        userName: string,
+        firstName: string,
+        lastName: string,
         role: string
     ) {
         const userId = crypto.randomUUID();
@@ -21,9 +21,9 @@ export default class AuthRepository {
         await db.insert(profilesTable).values({
             id: crypto.randomUUID(),
             userId: userId,
-            userName: user_name,
-            lastName: last_name,
-            firstName: first_name,
+            userName: userName,
+            lastName: lastName,
+            firstName: firstName,
         });
     }
 
@@ -31,6 +31,7 @@ export default class AuthRepository {
         const [user] = await db.select().from(usersTable).where(eq(usersTable.email, email));
         return user ?? null;
     }
+    
 
     public async countAdmin() {
         const [admin] = await db

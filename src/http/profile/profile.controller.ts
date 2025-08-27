@@ -15,11 +15,13 @@ export const profileController = new Hono<{ Variables: Context }>()
         zValidator("form", updateProfileValidation),
         async (c) => {
             const profileId = c.req.param("profileId");
-            const { name, gender, avatar, cover } = c.req.valid("form");
+            const { userName, firstName, lastName, gender, avatar, cover } = c.req.valid("form");
             // Handle the update logic here
             const updatedProfile = await profileService.updateProfile(
                 profileId,
-                name!,
+                userName!,
+                firstName!,
+                lastName!,
                 gender!,
                 avatar!,
                 cover!

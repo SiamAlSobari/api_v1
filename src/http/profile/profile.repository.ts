@@ -6,7 +6,9 @@ export default class ProfileRepository {
     public async updateProfile(
         avatar_url: string,
         cover_url: string,
-        name: string,
+        userName: string,
+        firstName: string,
+        lastName: string,
         gender: string,
         profileId: string
     ) {
@@ -15,7 +17,9 @@ export default class ProfileRepository {
             .set({
                 avatarImageUrl: `http://localhost:3000/api/uploads/profiles/avatars/${avatar_url}`,
                 coverImageUrl: `http://localhost:3000/api/uploads/profiles/covers/${cover_url}`,
-                name: name,
+                userName: userName,
+                firstName: firstName,
+                lastName: lastName,
                 gender: gender,
             })
             .where(eq(profilesTable.id, profileId));

@@ -6,7 +6,9 @@ export default class ProfileService {
 
     public async updateProfile(
         profileId: string,
-        name: string,
+        userName: string,
+        firstName: string,
+        lastName: string,
         gender: string,
         avatar: File,
         cover: File
@@ -27,8 +29,8 @@ export default class ProfileService {
             const uploadCover = await uploadFile(cover, "uploads/profiles/covers");
             cover_url = uploadCover.randomName;
         }
-        await this.profileRepo.updateProfile(avatar_url, cover_url, name, gender, profileId);
-        return { avatar_url, cover_url, name, gender };
+        await this.profileRepo.updateProfile(avatar_url, cover_url, userName, firstName, lastName, gender, profileId);
+        return { avatar_url, cover_url, userName, firstName, lastName, gender };
     }
 
     public async getProfileByUserId(userId: string) {

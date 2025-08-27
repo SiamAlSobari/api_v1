@@ -11,8 +11,8 @@ const authRepository = new AuthRepository();
 const authService = new AuthService(authRepository);
 export const authController = new Hono<{ Variables: Context }>()
     .post("/signup", zValidator("json", signUpValidation), async (c) => {
-        const { email, password, user_name,first_name,last_name } = c.req.valid("json");
-        const user = await authService.signUp(email, password, user_name,first_name,last_name);
+        const { email, password, userName,firstName,lastName } = c.req.valid("json");
+        const user = await authService.signUp(email, password, userName,firstName,lastName);
         return HttpResponse(c, "Created", 201, user);
     })
     .post("/signin", zValidator("json", signInValidation), async (c) => {
