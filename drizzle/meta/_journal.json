@@ -43,6 +43,13 @@
       "when": 1756030381051,
       "tag": "0005_harsh_blizzard",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1756301852094,
+      "tag": "0006_easy_sally_floyd",
+      "breakpoints": true
     }
   ]
 }
