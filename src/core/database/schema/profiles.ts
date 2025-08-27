@@ -4,7 +4,9 @@ import { relations } from "drizzle-orm";
 
 export const profilesTable = mysqlTable("profiles", {
     id: varchar("id", { length: 255 }).notNull().unique().primaryKey(),
-    name: varchar("name", { length: 255 }).notNull(),
+    firstName: varchar("first_name", { length: 255 }).notNull(),
+    lastName: varchar("last_name", { length: 255 }).notNull(),
+    userName: varchar("user_name", { length: 255 }).notNull(),
     userId: varchar("user_id", { length: 255 })
         .unique()
         .notNull()
