@@ -40,4 +40,12 @@ export default class ProfileRepository {
             .where(eq(profilesTable.userId, userId));
         return profile;
     }
+
+    public async getProfileByUserName(userName:string) {
+        const [profile] = await db
+            .select()
+            .from(profilesTable)
+            .where(eq(profilesTable.userName, userName));
+        return profile;
+    }
 }
