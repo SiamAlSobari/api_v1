@@ -2,14 +2,26 @@ import { comparePassword, hashPassword } from "../../common/helpers/hash.passwor
 import { HttpException } from "../../common/helpers/http.exception";
 import { jwtSeccret } from "../../common/helpers/jwt.secret";
 import { generateToken } from "../../common/helpers/jwt.token";
+import ProfileRepository from "../profile/profile.repository";
 import AuthRepository from "./auth.repository";
 
 export default class AuthService {
-    constructor(private readonly authRepo: AuthRepository) {}
+    constructor(
+        private readonly authRepo: AuthRepository,
+        private readonly profileRepo: ProfileRepository
+    ) {}
 
-    public async signUp(email: string, password: string, userName: string, firstName: string, lastName: string) {
+    public async signUp(
+        email: string,
+        password: string,
+        userName: string,
+        firstName: string,
+        lastName: string
+    ) {
         const existsUser = await this.authRepo.findUserByEmail(email);
         if (existsUser) throw new HttpException("User already exists", 400);
+        const existUserName = await this.profileRepo.getProfileByUserName(userName);
+        if (existUserName) throw new HttpException("User name already exists", 400);
         const isAdmin = await this.authRepo.countAdmin();
         const role = isAdmin.count < 3 ? "admin" : "user";
         const hashedPassword = await hashPassword(password);

@@ -6,9 +6,11 @@ import AuthService from "./auth.service";
 import { HttpResponse } from "../../common/helpers/http.response";
 import { deleteCookie, setCookie } from "hono/cookie";
 import { authMiddleware } from "../../common/middlewares/auth.middleware";
+import ProfileRepository from "../profile/profile.repository";
 
 const authRepository = new AuthRepository();
-const authService = new AuthService(authRepository);
+const profileRepository = new ProfileRepository();
+const authService = new AuthService(authRepository, profileRepository);
 export const authController = new Hono<{ Variables: Context }>()
     .post("/signup", zValidator("json", signUpValidation), async (c) => {
         const { email, password, userName,firstName,lastName } = c.req.valid("json");
