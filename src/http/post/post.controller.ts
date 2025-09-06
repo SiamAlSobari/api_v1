@@ -5,9 +5,11 @@ import PostService from "./post.service";
 import { HttpResponse } from "../../common/helpers/http.response";
 import PostRepository from "./post.repository";
 import { authMiddleware } from "../../common/middlewares/auth.middleware";
+import TopicRepository from "../topic/topic.repository";
 
 const postRepository = new PostRepository();
-const postService = new PostService(postRepository);
+const topicRepository = new TopicRepository();
+const postService = new PostService(postRepository, topicRepository);
 export const postController = new Hono<{ Variables: Context }>()
   .post("create", zValidator("form", createPostValidation), authMiddleware, async (c) => {
     const user = c.get("user");
