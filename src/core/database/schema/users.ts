@@ -2,6 +2,7 @@ import { relations } from "drizzle-orm";
 import { int, mysqlTable, serial, timestamp, varchar } from "drizzle-orm/mysql-core";
 import { profilesTable } from "./profiles";
 import { postsTable } from "./posts";
+import { messagesTable } from "./message";
 
 export const usersTable = mysqlTable("users", {
     id: varchar("id", { length: 255 }).notNull().unique().primaryKey(),
@@ -12,9 +13,15 @@ export const usersTable = mysqlTable("users", {
     updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
 });
 
-export const usersRelations = relations(usersTable, ({ one,many }) => ({
+export const usersRelations = relations(usersTable, ({ one, many }) => ({
     profile: one(profilesTable),
     posts: many(postsTable),
+    sentMessages: many(messagesTable, {
+        relationName: "sender",
+    }),
+    receivedMessages: many(messagesTable, {
+        relationName: "receiver",
+    }),
 }));
 
 export type User = typeof usersTable.$inferSelect;
