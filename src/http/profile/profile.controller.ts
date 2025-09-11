@@ -34,8 +34,8 @@ export const profileController = new Hono<{ Variables: Context }>()
         const profile = await profileService.getProfileByUserId(userId);
         return HttpResponse(c, "Profile fetched successfully", 200, profile);
     })
-    .get('/:userId',authMiddleware, async (c) =>{
-        const userId = c.req.param('userId')
+    .get("/:userId", authMiddleware, async (c) => {
+        const userId = c.req.param("userId");
         const profile = await profileService.getProfileByUserId(userId);
         return HttpResponse(c, "Profile fetched successfully", 200, profile);
-    })
+    });

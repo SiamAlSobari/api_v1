@@ -7,6 +7,7 @@ import { serveStatic } from "hono/bun";
 import { profileController } from "./http/profile/profile.controller";
 import { join } from "path";
 import { existsSync } from "fs";
+import { topicController } from "./http/topic/topic.controller";
 
 const app = new Hono().basePath("api");
 const staticApp = new Hono(); // Hono tanpa basePath untuk uploads
@@ -57,5 +58,6 @@ app.get("/", (c) => {
 app.route("/auth", authController);
 app.route("/posts", postController);
 app.route("/profiles", profileController);
+app.route("topics", topicController);
 
 export default app;
