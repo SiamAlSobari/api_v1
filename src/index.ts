@@ -10,11 +10,8 @@ import { existsSync } from "fs";
 import { topicController } from "./http/topic/topic.controller";
 
 const app = new Hono().basePath("api");
-const staticApp = new Hono(); // Hono tanpa basePath untuk uploads
 
-// Pastikan path absolute ke folder uploads
 const uploadsPath = join(process.cwd(), "uploads");
-// Middleware untuk /api/uploads/* (dengan /api)
 app.use("/uploads/*", async (c, next) => {
     const relativePath = c.req.path.replace(/^\/api\/uploads/, "");
     const filePath = join(uploadsPath, relativePath);

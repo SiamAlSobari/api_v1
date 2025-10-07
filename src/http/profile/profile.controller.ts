@@ -16,7 +16,7 @@ export const profileController = new Hono<{ Variables: Context }>()
         async (c) => {
             const profileId = c.req.param("profileId");
             const { userName, firstName, lastName, gender, avatar, cover } = c.req.valid("form");
-            // Handle the update logic here
+            // kirim ke service
             const updatedProfile = await profileService.updateProfile(
                 profileId,
                 userName!,
